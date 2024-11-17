@@ -94,12 +94,13 @@ public class Ui {
 
         boolean done = false;
         while (!done) {
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("1) Add extra premium topping (Cheese or Meat)");
-            System.out.println("2) Remove a topping");
-            System.out.println("3) View all toppings");
-            System.out.println("4) Finish sandwich");
-            System.out.print("Choice: ");
+            System.out.println("What would you like to do?\n" +
+                    "1) Add extra premium topping (Cheese or Meat)\n" +
+                    "2) Remove a topping\n" +
+                    "2) Remove a topping\n" +
+                    "3) View all toppings\n" +
+                    "4) Finish sandwich\n" +
+                    "Choice: ");
             int choice = inputScanner.nextInt();
             inputScanner.nextLine(); // Consume newline
 
@@ -134,7 +135,7 @@ public class Ui {
             sandwich.addTopping(new Meat(name, price));
             System.out.println(name + " added as extra meat.");
         } else {
-            System.out.println("Unknown topping type. Skipping this topping.");
+            System.out.println("not a valid topping");
         }
     }
 
