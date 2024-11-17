@@ -186,6 +186,7 @@ public class Ui {
                             "5. Finish sandwich\n" +
                             "Select an option: "
             );
+
             try {
                 int menuOp = commandScanner.nextInt();
                 commandScanner.nextLine(); // Consume newline
@@ -391,7 +392,6 @@ public class Ui {
         }
     }
 
-
     private static void addDrink() {
         System.out.print("Enter drink size (Small/Medium/Large): ");
         String size = inputScanner.nextLine();
@@ -408,35 +408,74 @@ public class Ui {
 
     private static void checkout() {
         System.out.println("\n---- Checkout ----");
-        System.out.println(order);
-        System.out.println("Thank you for your order!");
+        System.out.println(order); // Display the order details
+
+        boolean done = false;
+        while (!done) {
+            System.out.println(
+                    "1. Confirm Order (Generate Receipt and Exit to Main Menu)\n" +
+                            "2. Cancel Order (Delete Order and Exit to Main Menu)\n" +
+                            "Select an option: "
+            );
+            try {
+                int choice = commandScanner.nextInt();
+                commandScanner.nextLine(); // Consume newline
+                switch (choice) {
+                    case 1 -> {
+                        generateReceipt(); // Create receipt file
+                        System.out.println("Order confirmed! Receipt has been generated.");
+                        done = true;
+                    }
+                    case 2 -> {
+                        order = new Order(); // Reset the order
+                        System.out.println("Order canceled. Returning to main menu.");
+                        done = true;
+                    }
+                    default -> System.out.println("Invalid choice. Please select 1 or 2.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+                commandScanner.nextLine(); // Clear invalid input
+            }
+        }
     }
 
-    private static String getMeatChoice(int selectedMeat) {
-        return switch (selectedMeat) {
-            case 1 -> "Steak";
-            case 2 -> "Ham";
-            case 3 -> "Salami";
-            case 4 -> "Roast Beef";
-            case 5 -> "Chicken";
-            case 6 -> "Bacon";
-            default -> {
-                System.out.println("Invalid choice, defaulting to Chicken.");
-                yield "Chicken";
-            }
-        };
-    }
+    private static void generateReceipt() {
+        System.out.println("\n---- Checkout ----");
+        System.out.println(order); // Display the order details
 
-    private static String getCheeseChoice(int selectedCheese) {
-        return switch (selectedCheese) {
-            case 1 -> "American";
-            case 2 -> "Provolone";
-            case 3 -> "Cheddar";
-            case 4 -> "Swiss";
-            default -> {
-                System.out.println("Invalid choice, defaulting to American.");
-                yield "American";
+        boolean done = false;
+        while (!done) {
+            System.out.println(
+                    "1. Confirm Order (Generate Receipt and Exit to Main Menu)\n" +
+                            "2. Cancel Order (Delete Order and Exit to Main Menu)\n" +
+                            "Select an option: "
+            );
+            try {
+                int choice = commandScanner.nextInt();
+                commandScanner.nextLine(); // Consume newline
+                switch (choice) {
+                    case 1 -> {
+                        // Generate receipt using FileManager
+                        String filePath = FileManager.writeReceipt(order.toString());
+                        if (filePath != null) {
+                            System.out.println("Order confirmed! Receipt saved at: " + filePath);
+                        } else {
+                            System.out.println("Failed to generate the receipt.");
+                        }
+                        done = true;
+                    }
+                    case 2 -> {
+                        order = new Order(); // Reset the order
+                        System.out.println("Order canceled. Returning to main menu.");
+                        done = true;
+                    }
+                    default -> System.out.println("Invalid choice. Please select 1 or 2.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+                commandScanner.nextLine(); // Clear invalid input
             }
-        };
+        }
     }
 }

@@ -1,0 +1,15 @@
+---- Receipt ----
+Order Summary:
+- 12" white
+Toppings:
+- American ($2.25)
+- Ham ($1.50)
+- Lettuce ($0.00)
+- Peppers ($0.00)
+- Onions ($0.00)
+- Mustard ($0.00)
+- Mayo ($0.00)
+Price: $12.25
+- small Drink ($2.00)
+- large Drink ($3.00)
+Total: $17.25
