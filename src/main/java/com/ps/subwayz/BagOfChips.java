@@ -1,7 +1,7 @@
 package com.ps.subwayz;
 
 public class BagOfChips implements Product{
-    private String flavor;
+    private final String flavor;
 
     public BagOfChips(String flavor) {
         this.flavor = flavor;
@@ -9,11 +9,11 @@ public class BagOfChips implements Product{
 
     @Override
     public double getPrice() {
-        return 1.50; // Flat price for chips
+        return 1.50; // Fixed price for chips
     }
 
     @Override
     public String toString() {
-        return "Bag of Chips (" + flavor + ")";
+        return flavor + " Chips ($" + String.format("%.2f", getPrice()) + ")";
     }
 }

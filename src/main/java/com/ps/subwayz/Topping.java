@@ -1,9 +1,8 @@
 package com.ps.subwayz;
 
 public abstract class Topping {
-
-    protected String name;
-    protected double price;
+    private final String name;
+    private final double price;
 
     public Topping(String name, double price) {
         this.name = name;
@@ -19,7 +18,4 @@ public abstract class Topping {
     }
 
     public abstract String getType();
-
-
-
 }

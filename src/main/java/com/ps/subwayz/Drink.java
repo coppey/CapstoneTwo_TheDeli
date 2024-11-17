@@ -1,8 +1,7 @@
 package com.ps.subwayz;
 
 public class Drink implements Product{
-
-    private String size;
+    private final String size;
 
     public Drink(String size) {
         this.size = size;
@@ -10,16 +9,16 @@ public class Drink implements Product{
 
     @Override
     public double getPrice() {
-        switch (size.toLowerCase()) {
-            case "small": return 2.00;
-            case "medium": return 2.50;
-            case "large": return 3.00;
-            default: return 0;
-        }
+        return switch (size.toLowerCase()) {
+            case "small" -> 2.00;
+            case "medium" -> 2.50;
+            case "large" -> 3.00;
+            default -> 0.0; // Default to $0 if size is invalid
+        };
     }
 
     @Override
     public String toString() {
-        return size + " Drink";
+        return size + " Drink ($" + String.format("%.2f", getPrice()) + ")";
     }
 }
