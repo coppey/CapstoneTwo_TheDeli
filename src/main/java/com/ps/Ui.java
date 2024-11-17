@@ -15,7 +15,7 @@ public class Ui {
         int menuOp;
 
         do {
-            System.out.println("----Welcome to Subwayzz----" +
+            System.out.println("----Welcome to Subwayzz----\n" +
                     "What would you like to do?\n" +
                     "1) Place an Order\n" +
                     "2) Leave\n" +

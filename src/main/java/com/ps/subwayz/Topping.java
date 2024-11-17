@@ -18,7 +18,7 @@ public abstract class Topping {
         return price;
     }
 
-
+    public abstract String getType();
 
 
 
