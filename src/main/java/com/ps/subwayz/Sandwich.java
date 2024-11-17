@@ -64,7 +64,7 @@ public class Sandwich implements Product {
         };
     }
 
-    private double getExtraMeatPrice() {
+    public double getExtraMeatPrice() {
         // Extra meat prices based on sandwich size
         return switch (size) {
             case 4 -> 0.50; // $0.50 for 4"
@@ -84,7 +84,7 @@ public class Sandwich implements Product {
         };
     }
 
-    private double getExtraCheesePrice() {
+    public double getExtraCheesePrice() {
         // Extra cheese prices based on sandwich size
         return switch (size) {
             case 4 -> 0.30; // $0.30 for 4"

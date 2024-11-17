@@ -141,7 +141,7 @@ public class Ui {
                 commandScanner.nextLine(); // Clear invalid input
             }
         }
-        // Choose Cheese
+
         // Regular Cheese Selection
         boolean validCheese = false;
         while (!validCheese) {
@@ -224,13 +224,15 @@ public class Ui {
                             "7. Pickles\n" +
                             "8. Guacamole\n" +
                             "9. Mushrooms\n" +
+                            "10. Olives\n" +
                             "---Sauces---\n" +
-                            "10. Mayo\n" +
                             "11. Mustard\n" +
                             "12. Ketchup\n" +
                             "13. Ranch\n" +
                             "14. Thousand Islands\n" +
                             "15. Vinaigrette\n" +
+                            "16. Mayo\n" +
+                            "17. Honey Mustard\n" +
                             "0. Done Adding Toppings\n" +
                             "Selection: "
             );
@@ -249,12 +251,14 @@ public class Ui {
                     case 7 -> sandwich.addTopping(new DefaultTopping("Pickles"), false);
                     case 8 -> sandwich.addTopping(new DefaultTopping("Guacamole"), false);
                     case 9 -> sandwich.addTopping(new DefaultTopping("Mushrooms"), false);
-                    case 10 -> sandwich.addTopping(new DefaultTopping("Mayo"), false);
+                    case 10 -> sandwich.addTopping(new DefaultTopping("Olive"), false);
                     case 11 -> sandwich.addTopping(new DefaultTopping("Mustard"), false);
                     case 12 -> sandwich.addTopping(new DefaultTopping("Ketchup"), false);
                     case 13 -> sandwich.addTopping(new DefaultTopping("Ranch"), false);
                     case 14 -> sandwich.addTopping(new DefaultTopping("Thousand Islands"), false);
                     case 15 -> sandwich.addTopping(new DefaultTopping("Vinaigrette"), false);
+                    case 16 -> sandwich.addTopping(new DefaultTopping("Mayo"), false);
+                    case 17 -> sandwich.addTopping(new DefaultTopping("Honey Mustard"), false);
                     case 0 -> {
                         System.out.println("Finished adding toppings.");
                         adding = false;
@@ -284,12 +288,109 @@ public class Ui {
     }
 
     private static void removeTopping(Sandwich sandwich) {
+        if (sandwich.getToppings().isEmpty()) {
+            System.out.println("No toppings to remove.");
+            return;
+        }
 
+        System.out.println("Select a topping to remove:");
+        int index = 1;
+        for (Topping topping : sandwich.getToppings()) {
+            System.out.println(index + ". " + topping.getName() + " (" + topping.getType() + ")");
+            index++;
+        }
+
+        try {
+            System.out.print("Choice: ");
+            int choice = commandScanner.nextInt();
+            commandScanner.nextLine(); // Consume newline
+
+            if (choice > 0 && choice <= sandwich.getToppings().size()) {
+                Topping removed = sandwich.getToppings().remove(choice - 1);
+                System.out.println(removed.getName() + " removed from the sandwich.");
+            } else {
+                System.out.println("Invalid choice. No topping removed.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please try again.");
+            commandScanner.nextLine(); // Clear invalid input
+        }
     }
 
     private static void addExtraPremiumTopping(Sandwich sandwich) {
+        System.out.println("What type of premium topping would you like to add?\n"+
+                "1. Extra Meat\n" +
+                "2. Extra Cheese\n" +
+                "Choice: "
+        );
+        try {
+            int choice = commandScanner.nextInt();
+            commandScanner.nextLine(); // Consume newline
 
+            switch (choice) {
+                case 1 -> {
+                    System.out.println("Select a meat:\n" +
+                            "1. Steak\n" +
+                            "2. Ham\n" +
+                            "3. Salami\n" +
+                            "4. Roast Beef\n" +
+                            "5. Chicken\n" +
+                            "6. Bacon\n" +
+                            "Choice: "
+                    );
+                    int meatChoice = commandScanner.nextInt();
+                    commandScanner.nextLine(); // Consume newline
+
+                    String meatName = switch (meatChoice) {
+                        case 1 -> "Steak";
+                        case 2 -> "Ham";
+                        case 3 -> "Salami";
+                        case 4 -> "Roast Beef";
+                        case 5 -> "Chicken";
+                        case 6 -> "Bacon";
+                        default -> null;
+                    };
+
+                    if (meatName != null) {
+                        sandwich.addTopping(new Meat(meatName, sandwich.getExtraMeatPrice()), true);
+                        System.out.println(meatName + " added as extra premium topping.");
+                    } else {
+                        System.out.println("Invalid choice. No meat added.");
+                    }
+                }
+                case 2 -> {
+                    System.out.println("Select a cheese:\n" +
+                            "1. American\n" +
+                            "2. Provolone\n" +
+                            "3. Cheddar\n" +
+                            "4. Swiss\n" +
+                            "Choice: ");
+                    int cheeseChoice = commandScanner.nextInt();
+                    commandScanner.nextLine(); // Consume newline
+
+                    String cheeseName = switch (cheeseChoice) {
+                        case 1 -> "American";
+                        case 2 -> "Provolone";
+                        case 3 -> "Cheddar";
+                        case 4 -> "Swiss";
+                        default -> null;
+                    };
+
+                    if (cheeseName != null) {
+                        sandwich.addTopping(new Cheese(cheeseName, sandwich.getExtraCheesePrice()), true);
+                        System.out.println(cheeseName + " added as extra premium topping.");
+                    } else {
+                        System.out.println("Invalid choice. No cheese added.");
+                    }
+                }
+                default -> System.out.println("Invalid choice. No premium topping added.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please try again.");
+            commandScanner.nextLine(); // Clear invalid input
+        }
     }
+
 
     private static void addDrink() {
         System.out.print("Enter drink size (Small/Medium/Large): ");
