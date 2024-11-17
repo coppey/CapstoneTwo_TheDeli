@@ -81,6 +81,30 @@ public class Ui {
         int size = inputScanner.nextInt();
         inputScanner.nextLine(); // Consume newline
 
+        System.out.println("What type of Meat would you like? Options:\n" +
+                "-> 1) Steak\n" +
+                "-> 2) Ham\n" +
+                "-> 3) Salami\n" +
+                "-> 4) Roast Beef\n" +
+                "-> 5) Chicken\n" +
+                "-> 6 Bacon\n" +
+                "choice:");
+        int selectedMeat = inputScanner.nextInt();
+        inputScanner.nextLine(); // New Line consumed
+        String meatName = getMeatChoice(selectedMeat);
+        Meat defaultMeat = new Meat(meatName, 0);
+
+        System.out.println("What type of Cheese would you like? Options:\n" +
+                "-> 1) American\n" +
+                "-> 2) Provolone\n" +
+                "-> 3) Cheddar\n" +
+                "-> 4) Swiss\n" +
+                "choice:");
+        int selectedCheese = inputScanner.nextInt();
+        inputScanner.nextLine(); // New Line consumed
+        String cheeseName = getCheeseChoice(selectedCheese);
+        Cheese defaultCheese = new Cheese(cheeseName, 0);
+
         System.out.print("Would you like the sandwich toasted? (y/n): ");
         String toastChoice = inputScanner.nextLine().toLowerCase().trim();
         boolean isToasted = toastChoice.equalsIgnoreCase("y");
@@ -89,8 +113,8 @@ public class Ui {
         Sandwich sandwich = new Sandwich(breadType, size, isToasted);
 
         // Add default toppings
-        sandwich.addTopping(new Cheese("Default Cheese", 0));
-        sandwich.addTopping(new Meat("Default Meat", 0));
+        sandwich.addTopping(defaultMeat);
+        sandwich.addTopping(defaultCheese);
 
         boolean done = false;
         while (!done) {
@@ -118,6 +142,33 @@ public class Ui {
         }
     }
 
+    private static String getMeatChoice(int selectedMeat) {
+        return switch (selectedMeat) {
+            case 1 -> "Steak";
+            case 2 -> "Ham";
+            case 3 -> "Salami";
+            case 4 -> "Roast Beef";
+            case 5 -> "Chicken";
+            case 6 -> "Bacon";
+            default -> {
+                System.out.println("Invalid choice, defaulting to Chicken.");
+                yield "Chicken";
+            }
+        };
+    }
+
+    private static String getCheeseChoice(int selectedCheese) {
+        return switch (selectedCheese) {
+            case 1 -> "American";
+            case 2 -> "Provolone";
+            case 3 -> "Cheddar";
+            case 4 -> "Swiss";
+            default -> {
+                System.out.println("Invalid choice, defaulting to American.");
+                yield "American";
+            }
+        };
+    }
     private static void addExtraPremiumTopping(Sandwich sandwich) {
         System.out.print("Enter topping type (Cheese/Meat): ");
         String type = inputScanner.nextLine();
