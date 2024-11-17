@@ -54,7 +54,7 @@ public class Sandwich implements Product {
         return price;
     }
 
-    private double getRegularMeatPrice() {
+    public double getRegularMeatPrice() {
         // Regular meat prices based on sandwich size
         return switch (size) {
             case 4 -> 1.00; // $1 for 4"
@@ -74,7 +74,7 @@ public class Sandwich implements Product {
         };
     }
 
-    private double getRegularCheesePrice() {
+    public double getRegularCheesePrice() {
         // Regular cheese prices based on sandwich size
         return switch (size) {
             case 4 -> 0.75; // $0.75 for 4"

@@ -95,25 +95,32 @@ public class Ui {
             }
         }
 
-        // Sandwich initialization
-        Sandwich sandwich = new Sandwich(breadType, size, false);
+        boolean isToasted = false;
+        System.out.print("Would you like the sandwich toasted? (y/n): ");
+        String toastChoice = inputScanner.nextLine().toLowerCase().trim();
+        if (toastChoice.equals("y")) {
+            isToasted = true;
+        }
 
-        // Choose Meat
+        // Sandwich initialization
+        Sandwich sandwich = new Sandwich(breadType, size, isToasted);
+
+        // Choose Regular Meat
         boolean validMeat = false;
         while (!validMeat) {
+            System.out.println(
+                    "Select Regular Meat:\n" +
+                            "1. Steak\n" +
+                            "2. Ham\n" +
+                            "3. Salami\n" +
+                            "4. Roast Beef\n" +
+                            "5. Chicken\n" +
+                            "6. Bacon\n" +
+                            "Choice: "
+            );
             try {
-                System.out.println("Select Meat:");
-                System.out.println("1. Steak\n" +
-                        "2. Ham\n" +
-                        "3. Salami\n" +
-                        "4. Roast Beef\n" +
-                        "5. Chicken\n" +
-                        "6. Bacon\n" +
-                        "Choice:"
-                );
                 int meatChoice = commandScanner.nextInt();
                 commandScanner.nextLine(); // Consume newline
-
                 String meatName = switch (meatChoice) {
                     case 1 -> "Steak";
                     case 2 -> "Ham";
@@ -121,56 +128,52 @@ public class Ui {
                     case 4 -> "Roast Beef";
                     case 5 -> "Chicken";
                     case 6 -> "Bacon";
-                    default -> {
-                        System.out.println("Invalid choice. Defaulting to Chicken.");
-                        yield "Chicken";
-                    }
+                    default -> null;
                 };
-
-                sandwich.addTopping(new Meat(meatName, sandwich.getRegularMeatPrice()), false);
-                validMeat = true;
+                if (meatName != null) {
+                    sandwich.addTopping(new Meat(meatName, sandwich.getRegularMeatPrice()), false);
+                    validMeat = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a valid meat.");
+                }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
                 commandScanner.nextLine(); // Clear invalid input
             }
         }
-
         // Choose Cheese
+        // Regular Cheese Selection
         boolean validCheese = false;
         while (!validCheese) {
+            System.out.println(
+                    "Select Regular Cheese:\n" +
+                            "1. American\n" +
+                            "2. Provolone\n" +
+                            "3. Cheddar\n" +
+                            "4. Swiss\n" +
+                            "Choice: "
+            );
             try {
-                System.out.println("Select Cheese:");
-                System.out.println("1. American\n2. Provolone\n3. Cheddar\n4. Swiss\nChoice:");
                 int cheeseChoice = commandScanner.nextInt();
                 commandScanner.nextLine(); // Consume newline
-
                 String cheeseName = switch (cheeseChoice) {
                     case 1 -> "American";
                     case 2 -> "Provolone";
                     case 3 -> "Cheddar";
                     case 4 -> "Swiss";
-                    default -> {
-                        System.out.println("Invalid choice. Defaulting to American.");
-                        yield "American";
-                    }
+                    default -> null;
                 };
-
-                sandwich.addTopping(new Cheese(cheeseName, sandwich.getRegularCheesePrice()), false);
-                validCheese = true;
+                if (cheeseName != null) {
+                    sandwich.addTopping(new Cheese(cheeseName, sandwich.getRegularCheesePrice()), false);
+                    validCheese = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a valid cheese.");
+                }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
                 commandScanner.nextLine(); // Clear invalid input
             }
         }
-
-        System.out.print("Would you like the sandwich toasted? (y/n): ");
-        String toastChoice = inputScanner.nextLine().toLowerCase().trim();
-        boolean isToasted = toastChoice.equalsIgnoreCase("y");
-
-        // Create sandwich and add default toppings
-        Sandwich sandwich = new Sandwich(breadType, size, isToasted);
-        sandwich.addTopping(defaultMeat);
-        sandwich.addTopping(defaultCheese);
 
         // Allow user to modify toppings
         boolean done = false;
@@ -237,24 +240,24 @@ public class Ui {
                 commandScanner.nextLine(); // Consume newline
 
                 switch (choice) {
-                    case 1 -> sandwich.addTopping(new DefaultTopping("Lettuce"));
-                    case 2 -> sandwich.addTopping(new DefaultTopping("Peppers"));
-                    case 3 -> sandwich.addTopping(new DefaultTopping("Onions"));
-                    case 4 -> sandwich.addTopping(new DefaultTopping("Tomatoes"));
-                    case 5 -> sandwich.addTopping(new DefaultTopping("Jalapenos"));
-                    case 6 -> sandwich.addTopping(new DefaultTopping("Cucumbers"));
-                    case 7 -> sandwich.addTopping(new DefaultTopping("Pickles"));
-                    case 8 -> sandwich.addTopping(new DefaultTopping("Guacamole"));
-                    case 9 -> sandwich.addTopping(new DefaultTopping("Mushrooms"));
-                    case 10 -> sandwich.addTopping(new DefaultTopping("Mayo"));
-                    case 11 -> sandwich.addTopping(new DefaultTopping("Mustard"));
-                    case 12 -> sandwich.addTopping(new DefaultTopping("Ketchup"));
-                    case 13 -> sandwich.addTopping(new DefaultTopping("Ranch"));
-                    case 14 -> sandwich.addTopping(new DefaultTopping("Thousand Islands"));
-                    case 15 -> sandwich.addTopping(new DefaultTopping("Vinaigrette"));
+                    case 1 -> sandwich.addTopping(new DefaultTopping("Lettuce"), false);
+                    case 2 -> sandwich.addTopping(new DefaultTopping("Peppers"), false);
+                    case 3 -> sandwich.addTopping(new DefaultTopping("Onions"), false);
+                    case 4 -> sandwich.addTopping(new DefaultTopping("Tomatoes"), false);
+                    case 5 -> sandwich.addTopping(new DefaultTopping("Jalapenos"), false);
+                    case 6 -> sandwich.addTopping(new DefaultTopping("Cucumbers"), false);
+                    case 7 -> sandwich.addTopping(new DefaultTopping("Pickles"), false);
+                    case 8 -> sandwich.addTopping(new DefaultTopping("Guacamole"), false);
+                    case 9 -> sandwich.addTopping(new DefaultTopping("Mushrooms"), false);
+                    case 10 -> sandwich.addTopping(new DefaultTopping("Mayo"), false);
+                    case 11 -> sandwich.addTopping(new DefaultTopping("Mustard"), false);
+                    case 12 -> sandwich.addTopping(new DefaultTopping("Ketchup"), false);
+                    case 13 -> sandwich.addTopping(new DefaultTopping("Ranch"), false);
+                    case 14 -> sandwich.addTopping(new DefaultTopping("Thousand Islands"), false);
+                    case 15 -> sandwich.addTopping(new DefaultTopping("Vinaigrette"), false);
                     case 0 -> {
-                        adding = false;
                         System.out.println("Finished adding toppings.");
+                        adding = false;
                     }
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
