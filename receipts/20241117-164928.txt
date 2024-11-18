@@ -1,0 +1,13 @@
+---- Receipt ----
+Order Summary:
+- 4" white (Toasted)
+Toppings:
+- Steak ($1.00)
+- Provolone ($0.75)
+- Peppers ($0.00)
+- Onions ($0.00)
+- Thousand Islands ($0.00)
+Price: $7.25
+- small Drink ($2.00)
+- salt and vinegar Chips ($1.50)
+Total: $10.75

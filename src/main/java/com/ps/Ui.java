@@ -2,15 +2,16 @@ package com.ps;
 
 import com.ps.subwayz.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    private static Order order = new Order(); // Initialize the order
-    private static final Scanner commandScanner = new Scanner(System.in); // For menu commands
-    private static final Scanner inputScanner = new Scanner(System.in); // For detailed user inputs
+    private static Order order; // Initialize the order
+    private static final Scanner commandScanner = new Scanner(System.in); // Scanner For menu commands
+    private static final Scanner inputScanner = new Scanner(System.in); // Scanner For user Inputs
 
     public static void display() {
+
+        // Continues Until Exit True
         boolean exit = false;
         while (!exit) {
             System.out.println(
@@ -37,7 +38,12 @@ public class Ui {
     }
 
     private static void startNewOrder() {
-        order = new Order(); // Reset the order
+        System.out.print("Enter your name: ");
+        String customerName = inputScanner.nextLine();
+
+        //Adds Name to Order
+        order = new Order(customerName);
+
         boolean ordering = true;
         while (ordering) {
             System.out.println(
@@ -50,7 +56,7 @@ public class Ui {
             );
             try {
                 int menuOp = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine(); // Consumes newline
                 switch (menuOp) {
                     case 1 -> addSandwich();
                     case 2 -> addDrink();
@@ -76,7 +82,7 @@ public class Ui {
         System.out.print("Enter bread type (Wheat/White/Rye/Wrap): ");
         String breadType = inputScanner.nextLine();
 
-        // Validate size
+        // Validates size
         int size = 0;
         boolean validSize = false;
         while (!validSize) {
@@ -87,7 +93,7 @@ public class Ui {
                 if (size == 4 || size == 8 || size == 12) {
                     validSize = true;
                 } else {
-                    System.out.println("Invalid size. Please enter 4, 8, or 12.");
+                    System.out.println("Invalid input. Please enter 4, 8, or 12.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number (4, 8, or 12).");
@@ -95,6 +101,7 @@ public class Ui {
             }
         }
 
+        // Ask User for toasted True
         boolean isToasted = false;
         System.out.print("Would you like the sandwich toasted? (y/n): ");
         String toastChoice = inputScanner.nextLine().toLowerCase().trim();
@@ -134,7 +141,7 @@ public class Ui {
                     sandwich.addTopping(new Meat(meatName, sandwich.getRegularMeatPrice()), false);
                     validMeat = true;
                 } else {
-                    System.out.println("Invalid choice. Please select a valid meat.");
+                    System.out.println("Invalid input. Please select a valid meat.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
@@ -155,7 +162,7 @@ public class Ui {
             );
             try {
                 int cheeseChoice = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine(); // Consumes newline
                 String cheeseName = switch (cheeseChoice) {
                     case 1 -> "American";
                     case 2 -> "Provolone";
@@ -167,7 +174,7 @@ public class Ui {
                     sandwich.addTopping(new Cheese(cheeseName, sandwich.getRegularCheesePrice()), false);
                     validCheese = true;
                 } else {
-                    System.out.println("Invalid choice. Please select a valid cheese.");
+                    System.out.println("Invalid input. Please select a number between 1 - 4.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
@@ -189,7 +196,7 @@ public class Ui {
 
             try {
                 int menuOp = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine(); // Consuming newline
                 switch (menuOp) {
                     case 1 -> addExtraPremiumTopping(sandwich);
                     case 2 -> removeTopping(sandwich);
@@ -204,14 +211,14 @@ public class Ui {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number between 1 and 4.");
-                commandScanner.nextLine(); // Clear invalid input
+                commandScanner.nextLine(); // Clear invalid inputs
             }
         }
     }
 
     private static void addRegularToppings(Sandwich sandwich) {
         boolean adding = true;
-
+        // Continues till adding is not True
         while (adding) {
             System.out.println(
                     "What Toppings would you like to add to your Sandwich?\n" +
@@ -240,7 +247,7 @@ public class Ui {
 
             try {
                 int choice = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine(); // Consuming newline
 
                 switch (choice) {
                     case 1 -> sandwich.addTopping(new DefaultTopping("Lettuce"), false);
@@ -326,7 +333,7 @@ public class Ui {
         );
         try {
             int choice = commandScanner.nextInt();
-            commandScanner.nextLine(); // Consume newline
+            commandScanner.nextLine();
 
             switch (choice) {
                 case 1 -> {
@@ -340,7 +347,7 @@ public class Ui {
                             "Choice: "
                     );
                     int meatChoice = commandScanner.nextInt();
-                    commandScanner.nextLine(); // Consume newline
+                    commandScanner.nextLine();
 
                     String meatName = switch (meatChoice) {
                         case 1 -> "Steak";
@@ -367,7 +374,7 @@ public class Ui {
                             "4. Swiss\n" +
                             "Choice: ");
                     int cheeseChoice = commandScanner.nextInt();
-                    commandScanner.nextLine(); // Consume newline
+                    commandScanner.nextLine();
 
                     String cheeseName = switch (cheeseChoice) {
                         case 1 -> "American";
@@ -419,7 +426,7 @@ public class Ui {
             );
             try {
                 int choice = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine();
                 switch (choice) {
                     case 1 -> {
                         generateReceipt(); // Create receipt file
@@ -427,7 +434,7 @@ public class Ui {
                         done = true;
                     }
                     case 2 -> {
-                        order = new Order(); // Reset the order
+                        order = null;
                         System.out.println("Order canceled. Returning to main menu.");
                         done = true;
                     }
@@ -441,19 +448,19 @@ public class Ui {
     }
 
     private static void generateReceipt() {
-        System.out.println("\n---- Checkout ----");
+        System.out.println("\nConfirm Purchase of?...");
         System.out.println(order); // Display the order details
 
         boolean done = false;
         while (!done) {
             System.out.println(
-                    "1. Confirm Order (Generate Receipt and Exit to Main Menu)\n" +
+                    "1. Complete Purchase\n" +
                             "2. Cancel Order (Delete Order and Exit to Main Menu)\n" +
                             "Select an option: "
             );
             try {
                 int choice = commandScanner.nextInt();
-                commandScanner.nextLine(); // Consume newline
+                commandScanner.nextLine(); // Consume newLine
                 switch (choice) {
                     case 1 -> {
                         // Generate receipt using FileManager
@@ -466,7 +473,7 @@ public class Ui {
                         done = true;
                     }
                     case 2 -> {
-                        order = new Order(); // Reset the order
+                        order = null;
                         System.out.println("Order canceled. Returning to main menu.");
                         done = true;
                     }
@@ -474,7 +481,7 @@ public class Ui {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
-                commandScanner.nextLine(); // Clear invalid input
+                commandScanner.nextLine();
             }
         }
     }

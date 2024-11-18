@@ -1,0 +1,9 @@
+---- Receipt ----
+Customer Name: Bob
+Order Details:
+- 4" wheat
+Toppings:
+- Steak ($1.00)
+- Cheddar ($0.75)
+Price: $7.25
+Total: $7.25

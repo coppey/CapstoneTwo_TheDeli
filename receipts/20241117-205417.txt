@@ -1,0 +1,9 @@
+---- Receipt ----
+Customer Name: ali
+Order Details:
+- 12" white (Toasted)
+Toppings:
+- Steak ($3.00)
+- Provolone ($2.25)
+Price: $13.75
+Total: $13.75

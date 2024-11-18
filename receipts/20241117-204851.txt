@@ -1,0 +1,21 @@
+---- Receipt ----
+Customer Name: husayb
+Order Details:
+- 4" white
+Toppings:
+- Ham ($1.00)
+- Swiss ($0.75)
+- Lettuce ($0.00)
+- Peppers ($0.00)
+- Onions ($0.00)
+- Honey Mustard ($0.00)
+Price: $7.25
+- 12" rye (Toasted)
+Toppings:
+- Provolone ($2.25)
+Price: $10.75
+- lays classic Chips ($1.50)
+- small Drink ($2.00)
+- large Drink ($3.00)
+- small Drink ($2.00)
+Total: $26.50
